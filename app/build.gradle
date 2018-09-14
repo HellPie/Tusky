@@ -39,13 +39,57 @@ android {
         debug { }
     }
 
-    flavorDimensions "color"
+    flavorDimensions "stage", "store"
     productFlavors {
-        blue { }
+        /**
+         * Flavor used to build a release for the Google Play Store.
+         *
+         * Contains a preconfigured, non editable blacklist of instances
+         * showing content against Google's policies so that the app will
+         * not be removed by Google due to a violation of their ToS.
+         */
+        google {
+            dimension "store"
+        }
 
-        green {
-            applicationIdSuffix ".test"
-            versionNameSuffix "-"+getGitSha()
+        /**
+         * Flavor used to build a release for F-Droid and other stores.
+         *
+         * Does not contain a blacklist of instances so that all users will
+         * be able to freely access the entirety of the web without having
+         * to worry about Google's ToS for developers and app publishers.
+         */
+        unbound {
+            dimension "store"
+        }
+
+        /**
+         * Flavor used for release builds.
+         */
+        release {
+            dimension "stage"
+        }
+
+        /**
+         * Flavor used for development builds.
+         *
+         * Optimizes build speed by implementing the suggestions documented at:
+         * https://developer.android.com/studio/build/optimize-your-build
+         *
+         * WARNING:
+         * Feel free to update these specifications to match your device's
+         * hardware but DO NOT commit or push your changes to upstream.
+         */
+        development {
+            dimension "stage"
+
+            // Speed up compilation by tighter device targeting
+            minSdkVersion 27
+            resConfig "en", "xxhdpi", "xxxhdpi"
+
+            // Install the development app alongside release
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-${getGitSha}"
         }
     }
 
