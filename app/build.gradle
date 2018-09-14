@@ -50,6 +50,11 @@ android {
          */
         google {
             dimension "store"
+
+            buildConfigField "String[]", "INSTANCE_BLACKLIST",
+                    "{" +
+                    "\"gab.ai\"" +
+                    "}"
         }
 
         /**
@@ -61,6 +66,8 @@ android {
          */
         unbound {
             dimension "store"
+
+            buildConfigField "String[]", "INSTANCE_BLACKLIST", "{}"
         }
 
         /**
