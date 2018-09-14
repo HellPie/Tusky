@@ -64,9 +64,9 @@ android {
         }
 
         /**
-         * Flavor used for release builds.
+         * Flavor used for production builds.
          */
-        release {
+        production {
             dimension "stage"
         }
 
@@ -85,7 +85,7 @@ android {
 
             // Speed up compilation by tighter device targeting
             minSdkVersion 27
-            resConfig "en", "xxhdpi", "xxxhdpi"
+            resConfigs "en", "xxhdpi"
 
             // Install the development app alongside release
             applicationIdSuffix ".debug"
